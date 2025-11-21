@@ -110,7 +110,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           totalKcalDaily: totalKcalDaily,
           totalKcalLeft: totalKcalLeft,
           totalKcalSupplied: totalKcalSupplied,
-          totalKcalBurned: totalKcalBurned,
           totalCarbsIntake: totalCarbsIntake,
           totalFatsIntake: totalFatsIntake,
           totalProteinsIntake: totalProteinsIntake,

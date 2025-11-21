@@ -121,6 +121,7 @@
 
 	"suppliedLabel": "получено",
 	"burnedLabel": "сожжено",
+	"dailyGoalLabel": "цель в день",
 	"kcalLeftLabel": "ккал осталось",
 	"nutritionInfoLabel": "Пищевая информация",
 	"kcalLabel": "ккал",

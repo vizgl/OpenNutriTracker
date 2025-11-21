@@ -8,7 +8,6 @@ class DashboardWidget extends StatefulWidget {
   final double totalKcalDaily;
   final double totalKcalLeft;
   final double totalKcalSupplied;
-  final double totalKcalBurned;
   final double totalCarbsIntake;
   final double totalFatsIntake;
   final double totalProteinsIntake;
@@ -19,7 +18,6 @@ class DashboardWidget extends StatefulWidget {
   const DashboardWidget(
       {super.key,
       required this.totalKcalSupplied,
-      required this.totalKcalBurned,
       required this.totalKcalDaily,
       required this.totalKcalLeft,
       required this.totalCarbsIntake,
@@ -121,16 +119,16 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                   ),
                   Column(
                     children: [
-                      Icon(Icons.keyboard_arrow_down_outlined,
+                      Icon(Icons.flag_outlined,
                           color: Theme.of(context).colorScheme.onSurface),
-                      Text('${widget.totalKcalBurned.toInt()}',
+                      Text('${widget.totalKcalDaily.toInt()}',
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge
                               ?.copyWith(
                                   color:
                                       Theme.of(context).colorScheme.onSurface)),
-                      Text(S.of(context).burnedLabel,
+                      Text(S.of(context).dailyGoalLabel,
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall
