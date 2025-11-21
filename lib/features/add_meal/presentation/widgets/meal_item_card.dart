@@ -6,12 +6,10 @@ import 'package:opennutritracker/core/presentation/widgets/meal_value_unit_text.
 import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/core/utils/navigation_options.dart';
 import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dart';
-import 'package:opennutritracker/features/add_meal/presentation/add_meal_type.dart';
 import 'package:opennutritracker/features/meal_detail/meal_detail_screen.dart';
 
 class MealItemCard extends StatelessWidget {
   final DateTime day;
-  final AddMealType addMealType;
   final MealEntity mealEntity;
   final bool usesImperialUnits;
 
@@ -19,7 +17,6 @@ class MealItemCard extends StatelessWidget {
       {super.key,
       required this.day,
       required this.mealEntity,
-      required this.addMealType,
       required this.usesImperialUnits});
 
   @override
@@ -96,6 +93,6 @@ class MealItemCard extends StatelessWidget {
   void _onItemPressed(BuildContext context) {
     Navigator.of(context).pushNamed(NavigationOptions.mealDetailRoute,
         arguments: MealDetailScreenArguments(
-            mealEntity, addMealType.getIntakeType(), day, usesImperialUnits));
+            mealEntity, day, usesImperialUnits));
   }
 }

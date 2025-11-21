@@ -2,15 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 import 'package:opennutritracker/core/domain/entity/intake_entity.dart';
-import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 import 'package:opennutritracker/core/domain/entity/tracked_day_entity.dart';
-import 'package:opennutritracker/core/domain/entity/user_activity_entity.dart';
-import 'package:opennutritracker/core/presentation/widgets/activity_vertial_list.dart';
 import 'package:opennutritracker/core/presentation/widgets/edit_dialog.dart';
 import 'package:opennutritracker/core/presentation/widgets/delete_dialog.dart';
 import 'package:opennutritracker/core/presentation/widgets/disclaimer_dialog.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
-import 'package:opennutritracker/features/add_meal/presentation/add_meal_type.dart';
 import 'package:opennutritracker/features/home/presentation/bloc/home_bloc.dart';
 import 'package:opennutritracker/features/home/presentation/widgets/dashboard_widget.dart';
 import 'package:opennutritracker/features/home/presentation/widgets/intake_vertical_list.dart';
@@ -66,11 +62,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               state.totalCarbsGoal,
               state.totalFatsGoal,
               state.totalProteinsGoal,
-              state.breakfastIntakeList,
-              state.lunchIntakeList,
-              state.dinnerIntakeList,
-              state.snackIntakeList,
-              state.userActivityList,
+              state.intakeList,
               state.usesImperialUnits);
         } else {
           return _getLoadingContent();
@@ -107,11 +99,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       double totalCarbsGoal,
       double totalFatsGoal,
       double totalProteinsGoal,
-      List<IntakeEntity> breakfastIntakeList,
-      List<IntakeEntity> lunchIntakeList,
-      List<IntakeEntity> dinnerIntakeList,
-      List<IntakeEntity> snackIntakeList,
-      List<UserActivityEntity> userActivities,
+      List<IntakeEntity> intakeList,
       bool usesImperialUnits) {
     if (showDisclaimerDialog) {
       _showDisclaimerDialog(context);
@@ -130,51 +118,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           totalFatsGoal: totalFatsGoal,
           totalProteinsGoal: totalProteinsGoal,
         ),
-        ActivityVerticalList(
-          day: DateTime.now(),
-          title: S.of(context).activityLabel,
-          userActivityList: userActivities,
-          onItemLongPressedCallback: onActivityItemLongPressed,
-        ),
         IntakeVerticalList(
           day: DateTime.now(),
-          title: S.of(context).breakfastLabel,
-          listIcon: IntakeTypeEntity.breakfast.getIconData(),
-          addMealType: AddMealType.breakfastType,
-          intakeList: breakfastIntakeList,
-          onDeleteIntakeCallback: onDeleteIntake,
-          onItemDragCallback: onIntakeItemDrag,
-          onItemTappedCallback: onIntakeItemTapped,
-          usesImperialUnits: usesImperialUnits,
-        ),
-        IntakeVerticalList(
-          day: DateTime.now(),
-          title: S.of(context).lunchLabel,
-          listIcon: IntakeTypeEntity.lunch.getIconData(),
-          addMealType: AddMealType.lunchType,
-          intakeList: lunchIntakeList,
-          onDeleteIntakeCallback: onDeleteIntake,
-          onItemDragCallback: onIntakeItemDrag,
-          onItemTappedCallback: onIntakeItemTapped,
-          usesImperialUnits: usesImperialUnits,
-        ),
-        IntakeVerticalList(
-          day: DateTime.now(),
-          title: S.of(context).dinnerLabel,
-          addMealType: AddMealType.dinnerType,
-          listIcon: IntakeTypeEntity.dinner.getIconData(),
-          intakeList: dinnerIntakeList,
-          onDeleteIntakeCallback: onDeleteIntake,
-          onItemDragCallback: onIntakeItemDrag,
-          onItemTappedCallback: onIntakeItemTapped,
-          usesImperialUnits: usesImperialUnits,
-        ),
-        IntakeVerticalList(
-          day: DateTime.now(),
-          title: S.of(context).snackLabel,
-          listIcon: IntakeTypeEntity.snack.getIconData(),
-          addMealType: AddMealType.snackType,
-          intakeList: snackIntakeList,
+          title: S.of(context).addMealLabel,
+          listIcon: Icons.restaurant_outlined,
+          intakeList: intakeList,
           onDeleteIntakeCallback: onDeleteIntake,
           onItemDragCallback: onIntakeItemDrag,
           onItemTappedCallback: onIntakeItemTapped,
@@ -213,20 +161,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     ]);
   }
 
-  void onActivityItemLongPressed(
-      BuildContext context, UserActivityEntity activityEntity) async {
-    final deleteIntake = await showDialog<bool>(
-        context: context, builder: (context) => const DeleteDialog());
-
-    if (deleteIntake != null) {
-      _homeBloc.deleteUserActivityItem(activityEntity);
-      _homeBloc.add(const LoadItemsEvent());
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(S.of(context).itemDeletedSnackbar)));
-      }
-    }
-  }
 
   void onIntakeItemLongPressed(
       BuildContext context, IntakeEntity intakeEntity) async {

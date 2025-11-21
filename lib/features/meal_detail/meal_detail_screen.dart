@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:logging/logging.dart';
-import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 import 'package:opennutritracker/core/presentation/widgets/meal_value_unit_text.dart';
 import 'package:opennutritracker/core/presentation/widgets/image_full_screen.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
@@ -40,7 +39,6 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
 
   late MealEntity meal;
   late DateTime _day;
-  late IntakeTypeEntity intakeTypeEntity;
 
   final quantityTextController = TextEditingController();
   late bool _usesImperialUnits;
@@ -61,7 +59,6 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
         ModalRoute.of(context)?.settings.arguments as MealDetailScreenArguments;
     meal = args.mealEntity;
     _day = args.day;
-    intakeTypeEntity = args.intakeTypeEntity;
     _usesImperialUnits = args.usesImperialUnits;
 
     // Set initial unit
@@ -123,7 +120,6 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
               bottomSheet: MealDetailBottomSheet(
                 product: meal,
                 day: _day,
-                intakeTypeEntity: intakeTypeEntity,
                 selectedUnit: state.selectedUnit,
                 mealDetailBloc: _mealDetailBloc,
                 quantityTextController: quantityTextController,
@@ -182,7 +178,6 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                           arguments: EditMealScreenArguments(
                             _day,
                             meal,
-                            intakeTypeEntity,
                             _usesImperialUnits,
                           ));
                 },
@@ -300,10 +295,9 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
 
 class MealDetailScreenArguments {
   final MealEntity mealEntity;
-  final IntakeTypeEntity intakeTypeEntity;
   final DateTime day;
   final bool usesImperialUnits;
 
   MealDetailScreenArguments(
-      this.mealEntity, this.intakeTypeEntity, this.day, this.usesImperialUnits);
+      this.mealEntity, this.day, this.usesImperialUnits);
 }

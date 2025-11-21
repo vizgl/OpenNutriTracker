@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/core/utils/navigation_options.dart';
 import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dart';
@@ -13,7 +12,6 @@ import 'package:opennutritracker/generated/l10n.dart';
 class MealDetailBottomSheet extends StatelessWidget {
   final MealEntity product;
   final DateTime day;
-  final IntakeTypeEntity intakeTypeEntity;
   final TextEditingController quantityTextController;
   final MealDetailBloc mealDetailBloc;
 
@@ -25,7 +23,6 @@ class MealDetailBottomSheet extends StatelessWidget {
       {super.key,
       required this.product,
       required this.day,
-      required this.intakeTypeEntity,
       required this.quantityTextController,
       required this.onQuantityOrUnitChanged,
       required this.mealDetailBloc,
@@ -160,7 +157,6 @@ class MealDetailBottomSheet extends StatelessWidget {
         context,
         mealDetailBloc.state.selectedUnit,
         mealDetailBloc.state.totalQuantityConverted,
-        intakeTypeEntity,
         product,
         day);
 

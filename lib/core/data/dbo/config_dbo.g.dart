@@ -93,7 +93,7 @@ ConfigDBO _$ConfigDBOFromJson(Map<String, dynamic> json) => ConfigDBO(
       userCarbGoalPct: (json['userCarbGoalPct'] as num?)?.toDouble(),
       userProteinGoalPct: (json['userProteinGoalPct'] as num?)?.toDouble(),
       userFatGoalPct: (json['userFatGoalPct'] as num?)?.toDouble(),
-      tdeeFormulaIndex: json['tdeeFormulaIndex'] as int?,
+      tdeeFormulaIndex: (json['tdeeFormulaIndex'] as num?)?.toInt(),
       manualCalorieGoal: (json['manualCalorieGoal'] as num?)?.toDouble(),
       manualCarbsGoal: (json['manualCarbsGoal'] as num?)?.toDouble(),
       manualProteinGoal: (json['manualProteinGoal'] as num?)?.toDouble(),

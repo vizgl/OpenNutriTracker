@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:logging/logging.dart';
-import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 import 'package:opennutritracker/core/utils/calc/unit_calc.dart';
 import 'package:opennutritracker/core/utils/custom_text_input_formatter.dart';
 import 'package:opennutritracker/core/utils/extensions.dart';
@@ -27,7 +26,6 @@ class _EditMealScreenState extends State<EditMealScreen> {
   final log = Logger('EditMealScreen');
   late MealEntity _mealEntity;
   late DateTime _day;
-  late IntakeTypeEntity _intakeTypeEntity;
   late bool _usesImperialUnits;
 
   late EditMealBloc _editMealBloc;
@@ -70,7 +68,6 @@ class _EditMealScreenState extends State<EditMealScreen> {
         ModalRoute.of(context)?.settings.arguments as EditMealScreenArguments;
     _mealEntity = args.mealEntity;
     _day = args.day;
-    _intakeTypeEntity = args.intakeTypeEntity;
     _usesImperialUnits = args.usesImperialUnits;
 
     _nameTextController.text = _mealEntity.name ?? "";
@@ -296,7 +293,7 @@ class _EditMealScreenState extends State<EditMealScreen> {
           NavigationOptions.mealDetailRoute,
           ModalRoute.withName(NavigationOptions.addMealRoute),
           arguments: MealDetailScreenArguments(
-              newMealEntity, _intakeTypeEntity, _day, usesImperialUnits));
+              newMealEntity, _day, usesImperialUnits));
     } catch (exception, stacktrace) {
       log.warning("Error while creating new meal entity");
       Sentry.captureException(exception, stackTrace: stacktrace);
@@ -344,9 +341,8 @@ class _EditMealScreenState extends State<EditMealScreen> {
 class EditMealScreenArguments {
   final DateTime day;
   final MealEntity mealEntity;
-  final IntakeTypeEntity intakeTypeEntity;
   final bool usesImperialUnits;
 
   EditMealScreenArguments(
-      this.day, this.mealEntity, this.intakeTypeEntity, this.usesImperialUnits);
+      this.day, this.mealEntity, this.usesImperialUnits);
 }

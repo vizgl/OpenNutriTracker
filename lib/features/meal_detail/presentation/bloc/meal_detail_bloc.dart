@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 import 'package:opennutritracker/core/domain/entity/intake_entity.dart';
-import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 import 'package:opennutritracker/core/domain/usecase/add_intake_usecase.dart';
 import 'package:opennutritracker/core/domain/usecase/add_tracked_day_usecase.dart';
 import 'package:opennutritracker/core/domain/usecase/get_kcal_goal_usecase.dart';
@@ -75,14 +74,13 @@ class MealDetailBloc extends Bloc<MealDetailEvent, MealDetailState> {
   }
 
   void addIntake(BuildContext context, String unit, String amountText,
-      IntakeTypeEntity type, MealEntity meal, DateTime day) async {
+      MealEntity meal, DateTime day) async {
     final quantity = double.parse(amountText.replaceAll(',', '.'));
 
     final intakeEntity = IntakeEntity(
         id: IdGenerator.getUniqueID(),
         unit: unit,
         amount: quantity,
-        type: type,
         meal: meal,
         dateTime: day);
     await _addIntakeUseCase.addIntake(intakeEntity);

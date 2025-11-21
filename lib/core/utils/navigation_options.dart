@@ -6,7 +6,5 @@ class NavigationOptions {
   static const scannerRoute = "scanner";
   static const mealDetailRoute = "mealDetail";
   static const editMealRoute = "editMeal";
-  static const addActivityRoute = "addActivity";
-  static const activityDetailRoute = "activityDetail";
   static const imageFullScreenRoute = "imageFullScreen";
 }

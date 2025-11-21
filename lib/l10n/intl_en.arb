@@ -152,6 +152,7 @@
   "missingProductInfo": "Product missing required kcal or macronutrients information",
   "infoAddedIntakeLabel": "Added new intake",
   "infoAddedActivityLabel": "Added new activity",
+  "addMealLabel": "Add Meal",
   "editMealLabel": "Edit meal",
   "mealNameLabel": "Meal name",
   "mealBrandsLabel": "Brands",

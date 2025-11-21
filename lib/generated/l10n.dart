@@ -1363,6 +1363,11 @@ class S {
     );
   }
 
+  /// `Add Meal`
+  String get addMealLabel {
+    return Intl.message('Add Meal', name: 'addMealLabel', desc: '', args: []);
+  }
+
   /// `Edit meal`
   String get editMealLabel {
     return Intl.message('Edit meal', name: 'editMealLabel', desc: '', args: []);

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 import 'package:opennutritracker/core/presentation/widgets/error_dialog.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/core/utils/navigation_options.dart';
@@ -21,7 +20,6 @@ class _ScannerScreenState extends State<ScannerScreen> {
   final log = Logger('ScannerScreen');
 
   String? _scannedBarcode;
-  late IntakeTypeEntity _intakeTypeEntity;
   late DateTime _day;
 
   late ScannerBloc _scannerBloc;
@@ -36,7 +34,6 @@ class _ScannerScreenState extends State<ScannerScreen> {
   void didChangeDependencies() {
     final args =
         ModalRoute.of(context)?.settings.arguments as ScannerScreenArguments;
-    _intakeTypeEntity = args.intakeTypeEntity;
     _day = args.day;
     super.didChangeDependencies();
   }
@@ -59,7 +56,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
               return Navigator.of(context).pushReplacementNamed(
                   NavigationOptions.mealDetailRoute,
                   arguments: MealDetailScreenArguments(state.product,
-                      _intakeTypeEntity, _day, state.usesImperialUnits));
+                      _day, state.usesImperialUnits));
             }
           });
         } else if (state is ScannerFailedState) {
@@ -140,7 +137,6 @@ class _ScannerScreenState extends State<ScannerScreen> {
 
 class ScannerScreenArguments {
   final DateTime day;
-  final IntakeTypeEntity intakeTypeEntity;
 
-  ScannerScreenArguments(this.day, this.intakeTypeEntity);
+  ScannerScreenArguments(this.day);
 }

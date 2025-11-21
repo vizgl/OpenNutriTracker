@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:logging/logging.dart';
 import 'package:opennutritracker/core/data/dbo/intake_dbo.dart';
-import 'package:opennutritracker/core/data/dbo/intake_type_dbo.dart';
 
 class IntakeDataSource {
   final log = Logger('IntakeDataSource');
@@ -54,12 +53,9 @@ class IntakeDataSource {
     return _intakeBox.values.toList();
   }
 
-  Future<List<IntakeDBO>> getAllIntakesByDate(
-      IntakeTypeDBO intakeType, DateTime dateTime) async {
+  Future<List<IntakeDBO>> getAllIntakesByDate(DateTime dateTime) async {
     return _intakeBox.values
-        .where((intake) =>
-            DateUtils.isSameDay(dateTime, intake.dateTime) &&
-            intake.type == intakeType)
+        .where((intake) => DateUtils.isSameDay(dateTime, intake.dateTime))
         .toList();
   }
 

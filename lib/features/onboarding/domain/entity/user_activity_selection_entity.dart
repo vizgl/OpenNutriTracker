@@ -4,3 +4,4 @@ enum UserActivitySelectionEntity {
   active,
   veryActive
 }
+

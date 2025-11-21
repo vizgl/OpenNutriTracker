@@ -1,8 +1,6 @@
 import 'package:opennutritracker/core/data/data_source/intake_data_source.dart';
 import 'package:opennutritracker/core/data/dbo/intake_dbo.dart';
-import 'package:opennutritracker/core/data/dbo/intake_type_dbo.dart';
 import 'package:opennutritracker/core/domain/entity/intake_entity.dart';
-import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 
 class IntakeRepository {
   final IntakeDataSource _intakeDataSource;
@@ -33,10 +31,8 @@ class IntakeRepository {
     return await _intakeDataSource.getAllIntakes();
   }
 
-  Future<List<IntakeEntity>> getIntakeByDateAndType(
-      IntakeTypeEntity intakeType, DateTime date) async {
-    final intakeDBOList = await _intakeDataSource.getAllIntakesByDate(
-        IntakeTypeDBO.fromIntakeTypeEntity(intakeType), date);
+  Future<List<IntakeEntity>> getIntakeByDate(DateTime date) async {
+    final intakeDBOList = await _intakeDataSource.getAllIntakesByDate(date);
 
     return intakeDBOList
         .map((intakeDBO) => IntakeEntity.fromIntakeDBO(intakeDBO))

@@ -152,6 +152,7 @@
 	"missingProductInfo": "У продукта отсутствуют обязательные данные о ккал или макронутриентах",
 	"infoAddedIntakeLabel": "Добавлен новый прием пищи",
 	"infoAddedActivityLabel": "Добавлена новая активность",
+	"addMealLabel": "Добавить прием пищи",
 	"editMealLabel": "Редактировать прием пищи",
 	"mealNameLabel": "Название приема пищи",
 	"mealBrandsLabel": "Бренды",
