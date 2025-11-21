@@ -1,13 +1,16 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
             "name": "OpenNutriTracker",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "deviceId": "chrome",
+            "args": [
+                "--web-hostname=localhost",
+                "--web-port=64998",
+                "--web-browser-flag=--user-data-dir=D:\\Tools\\flutter\\flutter_web_profile"
+            ]
         }
     ]
 }

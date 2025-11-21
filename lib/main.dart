@@ -89,6 +89,7 @@ class OpenNutriTrackerApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
+      locale: const Locale('ru'),
       supportedLocales: S.delegate.supportedLocales,
       initialRoute: userInitialized
           ? NavigationOptions.mainRoute

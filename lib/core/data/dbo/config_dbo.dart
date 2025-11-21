@@ -2,6 +2,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:opennutritracker/core/data/dbo/app_theme_dbo.dart';
 import 'package:opennutritracker/core/domain/entity/config_entity.dart';
+import 'package:opennutritracker/core/domain/entity/tdee_formula_type.dart';
 
 part 'config_dbo.g.dart';
 
@@ -26,10 +27,29 @@ class ConfigDBO extends HiveObject {
   double? userProteinGoalPct;
   @HiveField(8)
   double? userFatGoalPct;
+  @HiveField(9)
+  int? tdeeFormulaIndex;
+  @HiveField(10)
+  double? manualCalorieGoal;
+  @HiveField(11)
+  double? manualCarbsGoal;
+  @HiveField(12)
+  double? manualProteinGoal;
+  @HiveField(13)
+  double? manualFatGoal;
 
   ConfigDBO(this.hasAcceptedDisclaimer, this.hasAcceptedPolicy,
       this.hasAcceptedSendAnonymousData, this.selectedAppTheme,
-      {this.usesImperialUnits = false, this.userKcalAdjustment});
+      {this.usesImperialUnits = false,
+      this.userKcalAdjustment,
+      this.userCarbGoalPct,
+      this.userProteinGoalPct,
+      this.userFatGoalPct,
+      this.tdeeFormulaIndex,
+      this.manualCalorieGoal,
+      this.manualCarbsGoal,
+      this.manualProteinGoal,
+      this.manualFatGoal});
 
   factory ConfigDBO.empty() =>
       ConfigDBO(false, false, false, AppThemeDBO.system);
@@ -39,7 +59,17 @@ class ConfigDBO extends HiveObject {
       entity.hasAcceptedPolicy,
       entity.hasAcceptedSendAnonymousData,
       AppThemeDBO.fromAppThemeEntity(entity.appTheme),
-      usesImperialUnits: entity.usesImperialUnits);
+      usesImperialUnits: entity.usesImperialUnits,
+      userKcalAdjustment: entity.userKcalAdjustment,
+      userCarbGoalPct: entity.userCarbGoalPct,
+      userProteinGoalPct: entity.userProteinGoalPct,
+      userFatGoalPct: entity.userFatGoalPct,
+      tdeeFormulaIndex:
+          TdeeFormulaTypeHelper.toIndex(entity.tdeeFormulaType),
+      manualCalorieGoal: entity.manualCalorieGoal,
+      manualCarbsGoal: entity.manualCarbsGoal,
+      manualProteinGoal: entity.manualProteinGoal,
+      manualFatGoal: entity.manualFatGoal);
 
   factory ConfigDBO.fromJson(Map<String, dynamic> json) =>
       _$ConfigDBOFromJson(json);

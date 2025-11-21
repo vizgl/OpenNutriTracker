@@ -90,6 +90,30 @@ class ConfigDataSource {
     config?.save();
   }
 
+  Future<void> setTdeeFormulaIndex(int tdeeFormulaIndex) async {
+    _log.fine('Updating config tdeeFormulaIndex to $tdeeFormulaIndex');
+    final config = _configBox.get(_configKey);
+    config?.tdeeFormulaIndex = tdeeFormulaIndex;
+    config?.save();
+  }
+
+  Future<void> setManualTargets(
+      {double? manualCalorieGoal,
+      double? manualCarbsGoal,
+      double? manualProteinGoal,
+      double? manualFatGoal}) async {
+    _log.fine('Updating manual targets');
+    final config = _configBox.get(_configKey);
+    if (config == null) {
+      return;
+    }
+    config.manualCalorieGoal = manualCalorieGoal;
+    config.manualCarbsGoal = manualCarbsGoal;
+    config.manualProteinGoal = manualProteinGoal;
+    config.manualFatGoal = manualFatGoal;
+    await config.save();
+  }
+
   Future<ConfigDBO> getConfig() async {
     return _configBox.get(_configKey) ?? ConfigDBO.empty();
   }

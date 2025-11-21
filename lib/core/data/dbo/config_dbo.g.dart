@@ -23,16 +23,21 @@ class ConfigDBOAdapter extends TypeAdapter<ConfigDBO> {
       fields[3] as AppThemeDBO,
       usesImperialUnits: fields[4] as bool?,
       userKcalAdjustment: fields[5] as double?,
-    )
-      ..userCarbGoalPct = fields[6] as double?
-      ..userProteinGoalPct = fields[7] as double?
-      ..userFatGoalPct = fields[8] as double?;
+      userCarbGoalPct: fields[6] as double?,
+      userProteinGoalPct: fields[7] as double?,
+      userFatGoalPct: fields[8] as double?,
+      tdeeFormulaIndex: fields[9] as int?,
+      manualCalorieGoal: fields[10] as double?,
+      manualCarbsGoal: fields[11] as double?,
+      manualProteinGoal: fields[12] as double?,
+      manualFatGoal: fields[13] as double?,
+    );
   }
 
   @override
   void write(BinaryWriter writer, ConfigDBO obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(14)
       ..writeByte(0)
       ..write(obj.hasAcceptedDisclaimer)
       ..writeByte(1)
@@ -50,7 +55,17 @@ class ConfigDBOAdapter extends TypeAdapter<ConfigDBO> {
       ..writeByte(7)
       ..write(obj.userProteinGoalPct)
       ..writeByte(8)
-      ..write(obj.userFatGoalPct);
+      ..write(obj.userFatGoalPct)
+      ..writeByte(9)
+      ..write(obj.tdeeFormulaIndex)
+      ..writeByte(10)
+      ..write(obj.manualCalorieGoal)
+      ..writeByte(11)
+      ..write(obj.manualCarbsGoal)
+      ..writeByte(12)
+      ..write(obj.manualProteinGoal)
+      ..writeByte(13)
+      ..write(obj.manualFatGoal);
   }
 
   @override
@@ -75,10 +90,15 @@ ConfigDBO _$ConfigDBOFromJson(Map<String, dynamic> json) => ConfigDBO(
       $enumDecode(_$AppThemeDBOEnumMap, json['selectedAppTheme']),
       usesImperialUnits: json['usesImperialUnits'] as bool? ?? false,
       userKcalAdjustment: (json['userKcalAdjustment'] as num?)?.toDouble(),
-    )
-      ..userCarbGoalPct = (json['userCarbGoalPct'] as num?)?.toDouble()
-      ..userProteinGoalPct = (json['userProteinGoalPct'] as num?)?.toDouble()
-      ..userFatGoalPct = (json['userFatGoalPct'] as num?)?.toDouble();
+      userCarbGoalPct: (json['userCarbGoalPct'] as num?)?.toDouble(),
+      userProteinGoalPct: (json['userProteinGoalPct'] as num?)?.toDouble(),
+      userFatGoalPct: (json['userFatGoalPct'] as num?)?.toDouble(),
+      tdeeFormulaIndex: json['tdeeFormulaIndex'] as int?,
+      manualCalorieGoal: (json['manualCalorieGoal'] as num?)?.toDouble(),
+      manualCarbsGoal: (json['manualCarbsGoal'] as num?)?.toDouble(),
+      manualProteinGoal: (json['manualProteinGoal'] as num?)?.toDouble(),
+      manualFatGoal: (json['manualFatGoal'] as num?)?.toDouble(),
+    );
 
 Map<String, dynamic> _$ConfigDBOToJson(ConfigDBO instance) => <String, dynamic>{
       'hasAcceptedDisclaimer': instance.hasAcceptedDisclaimer,
@@ -90,6 +110,11 @@ Map<String, dynamic> _$ConfigDBOToJson(ConfigDBO instance) => <String, dynamic>{
       'userCarbGoalPct': instance.userCarbGoalPct,
       'userProteinGoalPct': instance.userProteinGoalPct,
       'userFatGoalPct': instance.userFatGoalPct,
+      'tdeeFormulaIndex': instance.tdeeFormulaIndex,
+      'manualCalorieGoal': instance.manualCalorieGoal,
+      'manualCarbsGoal': instance.manualCarbsGoal,
+      'manualProteinGoal': instance.manualProteinGoal,
+      'manualFatGoal': instance.manualFatGoal,
     };
 
 const _$AppThemeDBOEnumMap = {

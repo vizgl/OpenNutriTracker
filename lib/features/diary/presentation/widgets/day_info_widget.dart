@@ -9,6 +9,7 @@ import 'package:opennutritracker/core/presentation/widgets/copy_dialog.dart';
 import 'package:opennutritracker/core/presentation/widgets/delete_dialog.dart';
 import 'package:opennutritracker/core/utils/custom_icons.dart';
 import 'package:opennutritracker/features/add_meal/presentation/add_meal_type.dart';
+import 'package:opennutritracker/features/diary/presentation/widgets/macro_progress_chart.dart';
 import 'package:opennutritracker/features/home/presentation/widgets/intake_vertical_list.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
@@ -111,6 +112,13 @@ class DayInfoWidget extends StatelessWidget {
                                         .onSurface.withValues(alpha: 0.7))),
                       ],
                     ),
+                  )
+                : const SizedBox(),
+            trackedDay != null
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 8.0),
+                    child: MacroProgressChart(trackedDay: trackedDay),
                   )
                 : const SizedBox(),
             const SizedBox(height: 8.0),

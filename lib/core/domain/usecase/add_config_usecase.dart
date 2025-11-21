@@ -1,6 +1,7 @@
 import 'package:opennutritracker/core/data/repository/config_repository.dart';
 import 'package:opennutritracker/core/domain/entity/app_theme_entity.dart';
 import 'package:opennutritracker/core/domain/entity/config_entity.dart';
+import 'package:opennutritracker/core/domain/entity/tdee_formula_type.dart';
 
 class AddConfigUsecase {
   final ConfigRepository _configRepository;
@@ -36,5 +37,22 @@ class AddConfigUsecase {
   Future<void> setConfigMacroGoalPct(
       double carbGoalPct, double proteinGoalPct, double fatPctGoal) async {
     _configRepository.setUserMacroPct(carbGoalPct, proteinGoalPct, fatPctGoal);
+  }
+
+  Future<void> setConfigTdeeFormula(TdeeFormulaType formulaType) async {
+    await _configRepository
+        .setTdeeFormulaIndex(TdeeFormulaTypeHelper.toIndex(formulaType));
+  }
+
+  Future<void> setManualTargets(
+      {double? manualCalorieGoal,
+      double? manualCarbsGoal,
+      double? manualProteinGoal,
+      double? manualFatGoal}) async {
+    await _configRepository.setManualTargets(
+        manualCalorieGoal: manualCalorieGoal,
+        manualCarbsGoal: manualCarbsGoal,
+        manualProteinGoal: manualProteinGoal,
+        manualFatGoal: manualFatGoal);
   }
 }

@@ -63,4 +63,20 @@ class ConfigRepository {
     _configDataSource.setConfigProteinGoalPct(protein);
     _configDataSource.setConfigFatGoalPct(fat);
   }
+
+  Future<void> setTdeeFormulaIndex(int index) async {
+    await _configDataSource.setTdeeFormulaIndex(index);
+  }
+
+  Future<void> setManualTargets(
+      {double? manualCalorieGoal,
+      double? manualCarbsGoal,
+      double? manualProteinGoal,
+      double? manualFatGoal}) async {
+    await _configDataSource.setManualTargets(
+        manualCalorieGoal: manualCalorieGoal,
+        manualCarbsGoal: manualCarbsGoal,
+        manualProteinGoal: manualProteinGoal,
+        manualFatGoal: manualFatGoal);
+  }
 }

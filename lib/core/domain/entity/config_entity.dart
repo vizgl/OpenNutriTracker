@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:opennutritracker/core/data/dbo/config_dbo.dart';
 import 'package:opennutritracker/core/domain/entity/app_theme_entity.dart';
+import 'package:opennutritracker/core/domain/entity/tdee_formula_type.dart';
 
 class ConfigEntity extends Equatable {
   final bool hasAcceptedDisclaimer;
@@ -12,6 +13,11 @@ class ConfigEntity extends Equatable {
   final double? userCarbGoalPct;
   final double? userProteinGoalPct;
   final double? userFatGoalPct;
+  final TdeeFormulaType tdeeFormulaType;
+  final double? manualCalorieGoal;
+  final double? manualCarbsGoal;
+  final double? manualProteinGoal;
+  final double? manualFatGoal;
 
   const ConfigEntity(this.hasAcceptedDisclaimer, this.hasAcceptedPolicy,
       this.hasAcceptedSendAnonymousData, this.appTheme,
@@ -19,7 +25,12 @@ class ConfigEntity extends Equatable {
       this.userKcalAdjustment,
       this.userCarbGoalPct,
       this.userProteinGoalPct,
-      this.userFatGoalPct});
+      this.userFatGoalPct,
+      this.tdeeFormulaType = TdeeFormulaType.iom2005,
+      this.manualCalorieGoal,
+      this.manualCarbsGoal,
+      this.manualProteinGoal,
+      this.manualFatGoal});
 
   factory ConfigEntity.fromConfigDBO(ConfigDBO dbo) => ConfigEntity(
         dbo.hasAcceptedDisclaimer,
@@ -31,6 +42,11 @@ class ConfigEntity extends Equatable {
         userCarbGoalPct: dbo.userCarbGoalPct,
         userProteinGoalPct: dbo.userProteinGoalPct,
         userFatGoalPct: dbo.userFatGoalPct,
+        tdeeFormulaType: TdeeFormulaTypeHelper.fromIndex(dbo.tdeeFormulaIndex),
+        manualCalorieGoal: dbo.manualCalorieGoal,
+        manualCarbsGoal: dbo.manualCarbsGoal,
+        manualProteinGoal: dbo.manualProteinGoal,
+        manualFatGoal: dbo.manualFatGoal,
       );
 
   @override
@@ -43,5 +59,10 @@ class ConfigEntity extends Equatable {
         userCarbGoalPct,
         userProteinGoalPct,
         userFatGoalPct,
+        tdeeFormulaType,
+        manualCalorieGoal,
+        manualCarbsGoal,
+        manualProteinGoal,
+        manualFatGoal,
       ];
 }

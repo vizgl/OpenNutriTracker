@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 import 'package:opennutritracker/core/domain/entity/app_theme_entity.dart';
+import 'package:opennutritracker/core/domain/entity/tdee_formula_type.dart';
 import 'package:opennutritracker/core/domain/usecase/add_config_usecase.dart';
 import 'package:opennutritracker/core/domain/usecase/add_tracked_day_usecase.dart';
 import 'package:opennutritracker/core/domain/usecase/get_config_usecase.dart';
@@ -57,6 +58,15 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     _addConfigUsecase.setConfigUsesImperialUnits(usesImperialUnits);
   }
 
+  Future<TdeeFormulaType> getTdeeFormulaType() async {
+    final config = await _getConfigUsecase.getConfig();
+    return config.tdeeFormulaType;
+  }
+
+  void setTdeeFormulaType(TdeeFormulaType formulaType) {
+    _addConfigUsecase.setConfigTdeeFormula(formulaType);
+  }
+
   Future<double> getKcalAdjustment() async {
     final config = await _getConfigUsecase.getConfig();
     return config.userKcalAdjustment ?? 0;
@@ -77,6 +87,26 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     return config.userFatGoalPct;
   }
 
+  Future<double?> getManualCalorieGoal() async {
+    final config = await _getConfigUsecase.getConfig();
+    return config.manualCalorieGoal;
+  }
+
+  Future<double?> getManualCarbGoal() async {
+    final config = await _getConfigUsecase.getConfig();
+    return config.manualCarbsGoal;
+  }
+
+  Future<double?> getManualProteinGoal() async {
+    final config = await _getConfigUsecase.getConfig();
+    return config.manualProteinGoal;
+  }
+
+  Future<double?> getManualFatGoal() async {
+    final config = await _getConfigUsecase.getConfig();
+    return config.manualFatGoal;
+  }
+
   void setKcalAdjustment(double kcalAdjustment) {
     _addConfigUsecase.setConfigKcalAdjustment(kcalAdjustment);
   }
@@ -84,6 +114,18 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       double carbGoalPct, double proteinGoalPct, double fatGoalPct) {
     _addConfigUsecase.setConfigMacroGoalPct(carbGoalPct.toInt() / 100,
         proteinGoalPct.toInt() / 100, fatGoalPct.toInt() / 100);
+  }
+
+  Future<void> setManualTargets(
+      {double? manualCalorieGoal,
+      double? manualCarbsGoal,
+      double? manualProteinGoal,
+      double? manualFatGoal}) async {
+    await _addConfigUsecase.setManualTargets(
+        manualCalorieGoal: manualCalorieGoal,
+        manualCarbsGoal: manualCarbsGoal,
+        manualProteinGoal: manualProteinGoal,
+        manualFatGoal: manualFatGoal);
   }
 
   void updateTrackedDay(DateTime day) async {

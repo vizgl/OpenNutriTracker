@@ -18,7 +18,6 @@ class OnboardingIntroPageBody extends StatefulWidget {
 
 class _OnboardingIntroPageBodyState extends State<OnboardingIntroPageBody> {
   bool _acceptedPolicy = false;
-  bool _acceptedDataCollection = false;
 
   @override
   Widget build(BuildContext context) {
@@ -73,16 +72,6 @@ class _OnboardingIntroPageBodyState extends State<OnboardingIntroPageBody> {
                   },
                 ),
               ),
-              ListTile(
-                onTap: () => _toggleDataCollection(),
-                title: Text(S.of(context).dataCollectionLabel,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodySmall),
-                leading: Checkbox(
-                  value: _acceptedDataCollection,
-                  onChanged: (value) => _toggleDataCollection(),
-                ),
-              )
             ],
           );
         } else {
@@ -95,14 +84,7 @@ class _OnboardingIntroPageBodyState extends State<OnboardingIntroPageBody> {
   void _togglePolicy() {
     setState(() {
       _acceptedPolicy = !_acceptedPolicy;
-      widget.setPageContent(_acceptedPolicy, _acceptedDataCollection);
-    });
-  }
-
-  void _toggleDataCollection() {
-    setState(() {
-      _acceptedDataCollection = !_acceptedDataCollection;
-      widget.setPageContent(_acceptedPolicy, _acceptedDataCollection);
+      widget.setPageContent(_acceptedPolicy, false);
     });
   }
 
